@@ -25,19 +25,89 @@
   <!-- Map Container -->
   <div id="map"></div>
 
+  <!-- Layers Modal -->
+  <div id="layersModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Choose Layers</h2>
+        <button id="closeModal" class="close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="layer-controls">
+          <button id="showAllBtn" class="control-btn">Show All</button>
+          <button id="hideAllBtn" class="control-btn">Hide All</button>
+        </div>
+        <div class="layer-list">
+          <label class="layer-item">
+            <img src="images/animals.svg" alt="" class="layer-icon">
+            <span>Animals</span>
+            <input type="checkbox" class="layer-checkbox" data-category="Animals" checked>
+          </label>
+          <label class="layer-item">
+            <img src="images/art.svg" alt="" class="layer-icon">
+            <span>Art Installation</span>
+            <input type="checkbox" class="layer-checkbox" data-category="Art Installation" checked>
+          </label>
+          <label class="layer-item">
+            <img src="images/building.svg" alt="" class="layer-icon">
+            <span>Building</span>
+            <input type="checkbox" class="layer-checkbox" data-category="Building" checked>
+          </label>
+          <label class="layer-item">
+            <img src="images/garden.svg" alt="" class="layer-icon">
+            <span>Garden</span>
+            <input type="checkbox" class="layer-checkbox" data-category="Garden" checked>
+          </label>
+          <label class="layer-item">
+            <img src="images/help.svg" alt="" class="layer-icon">
+            <span>Help Desk</span>
+            <input type="checkbox" class="layer-checkbox" data-category="Help Desk" checked>
+          </label>
+          <label class="layer-item">
+            <img src="images/playground.svg" alt="" class="layer-icon">
+            <span>Playground</span>
+            <input type="checkbox" class="layer-checkbox" data-category="Playground" checked>
+          </label>
+          <label class="layer-item">
+            <img src="images/poi.svg" alt="" class="layer-icon">
+            <span>POI</span>
+            <input type="checkbox" class="layer-checkbox" data-category="POI" checked>
+          </label>
+          <label class="layer-item">
+            <img src="images/restroom.svg" alt="" class="layer-icon">
+            <span>Restroom</span>
+            <input type="checkbox" class="layer-checkbox" data-category="Restroom" checked>
+          </label>
+          <label class="layer-item">
+            <img src="images/seat.svg" alt="" class="layer-icon">
+            <span>Seat</span>
+            <input type="checkbox" class="layer-checkbox" data-category="Seat" checked>
+          </label>
+          <label class="layer-item">
+            <img src="images/shop.svg" alt="" class="layer-icon">
+            <span>Shop</span>
+            <input type="checkbox" class="layer-checkbox" data-category="Shop" checked>
+          </label>
+          <label class="layer-item">
+            <img src="images/tree.svg" alt="" class="layer-icon">
+            <span>Tree</span>
+            <input type="checkbox" class="layer-checkbox" data-category="Tree" checked>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Map Controls -->
   <div class="map-controls">
     <button id="homeBtn" class="map-control-btn" title="Back to Home">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-        <polyline points="9 22 9 12 15 12 15 22"></polyline>
-      </svg>
+      <img src="images/left-chevron.svg" alt="Back" width="24" height="24">
     </button>
-    <button id="recenterBtn" class="map-control-btn" title="Recenter Map">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="10"></circle>
-        <circle cx="12" cy="12" r="3"></circle>
-      </svg>
+    <button id="mapToggleBtn" class="map-control-btn" title="Toggle Map Type">
+      <img id="mapToggleIcon" src="images/globe.svg" alt="Globe" width="24" height="24">
+    </button>
+    <button id="layersBtn" class="map-control-btn" title="Choose Layers">
+      <img src="images/layers.svg" alt="Layers" width="24" height="24">
     </button>
   </div>
 
@@ -90,6 +160,14 @@
     let map;
     let currentLocation = null;
     let pois = [];
+    let poiAnnotations = {}; // Store annotations by category
+    let trailOverlays = []; // Store trail overlays
+
+    // Trail GeoJSON files to load
+    const TRAIL_FILES = [
+      'json/marder-garden-path.geojson'
+      // Add more trail files here as needed
+    ];
 
     // Category to SVG icon mapping
     const CATEGORY_ICONS = {
@@ -133,9 +211,202 @@
       }
     }
 
+    // Load trail GeoJSON files
+    async function loadTrails() {
+      const trails = [];
+      for (const file of TRAIL_FILES) {
+        try {
+          const response = await fetch(file);
+          if (!response.ok) {
+            console.error(`Failed to load trail file: ${file}`);
+            continue;
+          }
+          const geojson = await response.json();
+          trails.push(geojson);
+          console.log(`Loaded trail: ${file}`);
+        } catch (error) {
+          console.error(`Error loading trail ${file}:`, error);
+        }
+      }
+      return trails;
+    }
+
+    // Calculate the midpoint of a trail for marker placement
+    function getTrailMidpoint(coordinates) {
+      // Flatten all segments into a single array of points
+      const allPoints = coordinates.flat();
+
+      // Get the middle index
+      const midIndex = Math.floor(allPoints.length / 2);
+      const midPoint = allPoints[midIndex];
+
+      // Return as MapKit coordinate (lat, lon)
+      return new mapkit.Coordinate(midPoint[1], midPoint[0]);
+    }
+
+    // Add trail marker annotation
+    function addTrailMarker(coordinate, properties) {
+      const trailName = properties.name || 'Trail';
+      const trailInfo = properties.info || '';
+      const trailDesc = properties.desc || '';
+      const imageURL = properties.imageURL;
+
+      // Create annotation with custom element (same style as POI markers)
+      const annotation = new mapkit.Annotation(coordinate, (coordinate, options) => {
+        // Create container for icon and label
+        const container = document.createElement('div');
+        container.style.cssText = 'display: flex; flex-direction: column; align-items: center; cursor: pointer;';
+
+        // Create icon
+        const iconImg = document.createElement('img');
+        iconImg.src = 'images/trail.svg';
+        iconImg.style.cssText = 'width: 30px; height: 30px; display: block;';
+        iconImg.alt = trailName;
+
+        // Create label
+        const label = document.createElement('div');
+        label.className = 'poi-name-label';
+        label.textContent = trailName;
+
+        container.appendChild(iconImg);
+        container.appendChild(label);
+
+        return container;
+      }, {
+        title: trailName,
+        subtitle: 'Trail',
+        data: { name: trailName, info: trailInfo, description: trailDesc, imageURL: imageURL }
+      });
+
+      annotation.data = { name: trailName, info: trailInfo, description: trailDesc, imageURL: imageURL };
+
+      // Add callout information
+      annotation.callout = {
+        calloutElementForAnnotation: (annotation) => {
+          const calloutDiv = document.createElement('div');
+          calloutDiv.className = 'poi-callout';
+
+          const title = document.createElement('h3');
+          title.className = 'callout-title';
+          title.textContent = annotation.data.name;
+          calloutDiv.appendChild(title);
+
+          const category = document.createElement('p');
+          category.className = 'callout-category';
+          category.textContent = 'Trail';
+          calloutDiv.appendChild(category);
+
+          if (annotation.data.description) {
+            const description = document.createElement('p');
+            description.className = 'callout-description';
+            description.textContent = annotation.data.description;
+            calloutDiv.appendChild(description);
+          }
+
+          if (annotation.data.info) {
+            const info = document.createElement('p');
+            info.className = 'callout-info';
+            info.textContent = annotation.data.info;
+            calloutDiv.appendChild(info);
+          }
+
+          if (annotation.data.imageURL) {
+            const image = document.createElement('img');
+            image.className = 'callout-image';
+            image.src = annotation.data.imageURL;
+            image.alt = annotation.data.name;
+            calloutDiv.appendChild(image);
+          }
+
+          return calloutDiv;
+        }
+      };
+
+      map.addAnnotation(annotation);
+      console.log(`Added trail marker for: ${trailName}`);
+    }
+
+    // Add trail overlays to the map
+    function addTrailOverlays(trails) {
+      if (!map || trails.length === 0) return;
+
+      trails.forEach(geojson => {
+        if (geojson.type === 'FeatureCollection' && geojson.features) {
+          geojson.features.forEach(feature => {
+            if (feature.geometry && feature.geometry.type === 'MultiLineString') {
+              const coordinates = feature.geometry.coordinates;
+              const properties = feature.properties || {};
+
+              // Get trail properties
+              const trailName = properties.name || 'Trail';
+              const trailColor = properties.color || 'blue';
+              const trailInfo = properties.info || '';
+              const trailDesc = properties.desc || '';
+
+              // Convert color names to hex values for MapKit
+              const colorMap = {
+                'yellow': '#FFD700',
+                'blue': '#0066CC',
+                'red': '#FF0000',
+                'green': '#00AA00',
+                'orange': '#FF8800',
+                'purple': '#9900CC',
+                'black': '#000000'
+              };
+
+              const strokeColor = colorMap[trailColor.toLowerCase()] || trailColor;
+
+              // Create polyline overlays for each segment
+              coordinates.forEach((segment, index) => {
+                // Convert coordinates to MapKit format
+                const points = segment.map(coord =>
+                  new mapkit.Coordinate(coord[1], coord[0]) // lat, lon (reversed from GeoJSON)
+                );
+
+                // Create the polyline style
+                const style = new mapkit.Style({
+                  lineWidth: 3,
+                  strokeColor: strokeColor,
+                  strokeOpacity: 0.8
+                });
+
+                // Create the polyline overlay
+                const polyline = new mapkit.PolylineOverlay(points, { style });
+
+                // Store trail metadata
+                polyline.data = {
+                  name: trailName,
+                  segment: index + 1,
+                  totalSegments: coordinates.length,
+                  color: trailColor,
+                  info: trailInfo,
+                  description: trailDesc
+                };
+
+                // Add to map
+                map.addOverlay(polyline);
+                trailOverlays.push(polyline);
+              });
+
+              // Add trail marker at midpoint
+              const midpoint = getTrailMidpoint(coordinates);
+              addTrailMarker(midpoint, properties);
+
+              console.log(`Added ${coordinates.length} segments for trail: ${trailName}`);
+            }
+          });
+        }
+      });
+    }
+
     // Add POI markers to the map
     function addPOIMarkers() {
       if (!map || pois.length === 0) return;
+
+      // Initialize category arrays
+      Object.keys(CATEGORY_ICONS).forEach(category => {
+        poiAnnotations[category] = [];
+      });
 
       pois.forEach(poi => {
         const coordinate = new mapkit.Coordinate(poi.latitude, poi.longitude);
@@ -177,38 +448,43 @@
           calloutElementForAnnotation: (annotation) => {
             const calloutDiv = document.createElement('div');
             calloutDiv.className = 'poi-callout';
-            calloutDiv.style.cssText = 'padding: 10px; max-width: 250px;';
 
             const title = document.createElement('h3');
+            title.className = 'callout-title';
             title.textContent = annotation.data.name;
-            title.style.cssText = 'margin: 0 0 5px 0; font-size: 16px; font-weight: bold;';
             calloutDiv.appendChild(title);
 
             if (annotation.data.category) {
               const category = document.createElement('p');
+              category.className = 'callout-category';
               category.textContent = annotation.data.category;
-              category.style.cssText = 'margin: 0 0 5px 0; color: #666; font-size: 12px;';
               calloutDiv.appendChild(category);
             }
 
             if (annotation.data.description) {
               const description = document.createElement('p');
+              description.className = 'callout-description';
               description.textContent = annotation.data.description;
-              description.style.cssText = 'margin: 0 0 10px 0; font-size: 14px;';
               calloutDiv.appendChild(description);
             }
 
             if (annotation.data.imageURL) {
               const image = document.createElement('img');
+              image.className = 'callout-image';
               image.src = annotation.data.imageURL;
               image.alt = annotation.data.name;
-              image.style.cssText = 'width: 100%; height: auto; border-radius: 5px; margin-top: 5px;';
               calloutDiv.appendChild(image);
             }
 
             return calloutDiv;
           }
         };
+
+        // Store annotation by category
+        if (!poiAnnotations[poi.category]) {
+          poiAnnotations[poi.category] = [];
+        }
+        poiAnnotations[poi.category].push(annotation);
 
         map.addAnnotation(annotation);
       });
@@ -230,7 +506,7 @@
 
         // Create the map
         map = new mapkit.Map('map', {
-          mapType: mapkit.Map.MapTypes.Standard,
+          mapType: mapkit.Map.MapTypes.Satellite,
           showsMapTypeControl: false,
           showsZoomControl: true,
           showsUserLocationControl: true,
@@ -246,25 +522,21 @@
             new mapkit.Coordinate(currentLocation.region.centerLatitude, currentLocation.region.centerLongitude),
             new mapkit.CoordinateSpan(currentLocation.region.latitudeDelta, currentLocation.region.longitudeDelta)
           );
-
-          // Add a marker for the selected location
-          addLocationMarker(currentLocation);
         } else {
           // Use default region showing all locations
           map.region = new mapkit.CoordinateRegion(
             new mapkit.Coordinate(DEFAULT_REGION.centerLatitude, DEFAULT_REGION.centerLongitude),
             new mapkit.CoordinateSpan(DEFAULT_REGION.latitudeDelta, DEFAULT_REGION.longitudeDelta)
           );
-
-          // Add markers for all locations
-          Object.values(LOCATIONS).forEach(location => {
-            addLocationMarker(location);
-          });
         }
 
         // Load and display POIs
         await loadPOIs();
         addPOIMarkers();
+
+        // Load and display trails
+        const trails = await loadTrails();
+        addTrailOverlays(trails);
 
         // Hide loading spinner
         document.getElementById('loading').style.display = 'none';
@@ -288,37 +560,101 @@
       }
     }
 
-    // Add a marker for a location
-    function addLocationMarker(location) {
-      const coordinate = new mapkit.Coordinate(location.latitude, location.longitude);
-
-      const annotation = new mapkit.MarkerAnnotation(coordinate, {
-        title: location.name,
-        color: '#3b82f6',
-        glyphText: '📍'
-      });
-
-      map.addAnnotation(annotation);
-    }
-
     // Event Listeners
     document.getElementById('homeBtn').addEventListener('click', () => {
       window.location.href = 'index.html';
     });
 
-    document.getElementById('recenterBtn').addEventListener('click', () => {
-      if (currentLocation) {
-        map.region = new mapkit.CoordinateRegion(
-          new mapkit.Coordinate(currentLocation.region.centerLatitude, currentLocation.region.centerLongitude),
-          new mapkit.CoordinateSpan(currentLocation.region.latitudeDelta, currentLocation.region.longitudeDelta)
-        );
+    document.getElementById('mapToggleBtn').addEventListener('click', () => {
+      const icon = document.getElementById('mapToggleIcon');
+
+      if (map.mapType === mapkit.Map.MapTypes.Standard) {
+        // Switch to Satellite
+        map.mapType = mapkit.Map.MapTypes.Satellite;
+        icon.src = 'images/globe.svg';
+        icon.alt = 'Globe';
       } else {
-        map.region = new mapkit.CoordinateRegion(
-          new mapkit.Coordinate(DEFAULT_REGION.centerLatitude, DEFAULT_REGION.centerLongitude),
-          new mapkit.CoordinateSpan(DEFAULT_REGION.latitudeDelta, DEFAULT_REGION.longitudeDelta)
-        );
+        // Switch to Standard
+        map.mapType = mapkit.Map.MapTypes.Standard;
+        icon.src = 'images/map.svg';
+        icon.alt = 'Map';
       }
     });
+
+    // Layers modal controls
+    const modal = document.getElementById('layersModal');
+    const layersBtn = document.getElementById('layersBtn');
+    const closeModalBtn = document.getElementById('closeModal');
+    const showAllBtn = document.getElementById('showAllBtn');
+    const hideAllBtn = document.getElementById('hideAllBtn');
+    const layerCheckboxes = document.querySelectorAll('.layer-checkbox');
+
+    // Open modal
+    layersBtn.addEventListener('click', () => {
+      modal.classList.add('active');
+    });
+
+    // Close modal
+    closeModalBtn.addEventListener('click', () => {
+      modal.classList.remove('active');
+    });
+
+    // Close modal when clicking outside
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.remove('active');
+      }
+    });
+
+    // Show all layers
+    showAllBtn.addEventListener('click', () => {
+      layerCheckboxes.forEach(checkbox => {
+        checkbox.checked = true;
+        const category = checkbox.dataset.category;
+        showCategory(category);
+      });
+    });
+
+    // Hide all layers
+    hideAllBtn.addEventListener('click', () => {
+      layerCheckboxes.forEach(checkbox => {
+        checkbox.checked = false;
+        const category = checkbox.dataset.category;
+        hideCategory(category);
+      });
+    });
+
+    // Toggle individual layers
+    layerCheckboxes.forEach(checkbox => {
+      checkbox.addEventListener('change', (e) => {
+        const category = e.target.dataset.category;
+        if (e.target.checked) {
+          showCategory(category);
+        } else {
+          hideCategory(category);
+        }
+      });
+    });
+
+    // Show category function
+    function showCategory(category) {
+      if (poiAnnotations[category]) {
+        poiAnnotations[category].forEach(annotation => {
+          if (!map.annotations.includes(annotation)) {
+            map.addAnnotation(annotation);
+          }
+        });
+      }
+    }
+
+    // Hide category function
+    function hideCategory(category) {
+      if (poiAnnotations[category]) {
+        poiAnnotations[category].forEach(annotation => {
+          map.removeAnnotation(annotation);
+        });
+      }
+    }
 
     // Initialize the map when the page loads
     document.addEventListener('DOMContentLoaded', () => {

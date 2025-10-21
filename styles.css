@@ -44,7 +44,7 @@ body {
 .map-controls {
   position: absolute;
   top: 1rem;
-  right: 1rem;
+  left: 1rem;
   z-index: 1000;
   display: flex;
   flex-direction: column;
@@ -52,9 +52,9 @@ body {
 }
 
 .map-control-btn {
-  background: white;
+  background-color: rgba(255, 255, 255, 0.8);
   border: none;
-  border-radius: 0.5rem;
+  border-radius: 50%;
   padding: 0.75rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   cursor: pointer;
@@ -97,7 +97,7 @@ body {
 @media (max-width: 768px) {
   .map-controls {
     top: 0.5rem;
-    right: 0.5rem;
+    left: 0.5rem;
   }
 
   .map-control-btn {
@@ -147,4 +147,219 @@ body {
 .mapkit-callout-subtitle {
   color: #6b7280;
   font-size: 0.875rem;
+}
+
+/* POI and Trail Callout Styles */
+.poi-callout {
+  padding: 12px;
+  max-width: 250px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.callout-title {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+  font-weight: bold;
+  color: #1f2937;
+}
+
+.callout-category {
+  margin: 0 0 8px 0;
+  color: #6b7280;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.callout-description {
+  margin: 0 0 10px 0;
+  font-size: 14px;
+  color: #374151;
+  line-height: 1.5;
+}
+
+.callout-info {
+  margin: 0 0 10px 0;
+  font-size: 12px;
+  font-style: italic;
+  color: #6b7280;
+}
+
+.callout-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-top: 8px;
+  display: block;
+}
+
+/* Layers Modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+}
+
+.modal.active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background-color: #f0f0f4;
+  border-radius: 1rem;
+  max-width: 400px;
+  width: 90%;
+  max-height: 80vh;
+  overflow: hidden;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  line-height: 1;
+  color: #6b7280;
+  cursor: pointer;
+  padding: 0;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  transition: all 0.2s;
+}
+
+.close-btn:hover {
+  background-color: #f3f4f6;
+  color: #1f2937;
+}
+
+.modal-body {
+  padding: 1.5rem;
+  overflow-y: auto;
+}
+
+.layer-controls {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.control-btn {
+  flex: 1;
+  padding: 0.625rem 1rem;
+  /* border: 1px solid #d1d5db; */
+  border-radius: 20px;
+  background-color: #dedee3;
+  color: #007AFF;
+  font-size: 0.875rem;
+  font-weight: 400;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+/* .control-btn:hover {
+  background-color: #f9fafb;
+  border-color: #007AFF;
+} */
+
+.control-btn:active {
+  transform: scale(0.98);
+}
+
+.layer-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.layer-item {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  gap: 0.75rem;
+  border-bottom: 1px solid #d1d5db;
+}
+
+.layer-item:last-child {
+  border-bottom: none;
+}
+
+.layer-item:hover {
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+.layer-icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.layer-item span {
+  font-size: 1rem;
+  color: #1f2937;
+  user-select: none;
+  flex: 1;
+}
+
+.layer-checkbox {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-left: auto;
+  cursor: pointer;
+  accent-color: #007AFF;
+  flex-shrink: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  border: 2px solid #d1d5db;
+  border-radius: 50%;
+  background-color: white;
+  position: relative;
+  transition: all 0.2s;
+}
+
+.layer-checkbox:checked {
+  background-color: #007AFF;
+  border-color: #007AFF;
+}
+
+.layer-checkbox:checked::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
 }
