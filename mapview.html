@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Arts & Rec Guide - Interactive Map">
+  <title>Map View - Arts &amp; Rec Guide</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Apple MapKit JS -->
+  <script src="https://cdn.apple-mapkit.com/mk/5.x.x/mapkit.js" crossorigin async></script>
+</head>
+<body class="m-0 p-0 overflow-hidden">
+
+  <!-- Loading Spinner -->
+  <div id="loading" class="loading-spinner">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- Map Container -->
+  <div id="map"></div>
+
+  <!-- Map Controls -->
+  <div class="map-controls">
+    <button id="homeBtn" class="map-control-btn" title="Back to Home">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+      </svg>
+    </button>
+    <button id="recenterBtn" class="map-control-btn" title="Recenter Map">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"></circle>
+        <circle cx="12" cy="12" r="3"></circle>
+      </svg>
+    </button>
+  </div>
+
+  <script>
+    // Location coordinates
+    const LOCATIONS = {
+      arboretum: {
+        latitude: 38.79594,
+        longitude: -94.69087,
+        name: 'Arboretum',
+        region: {
+          centerLatitude: 38.79594,
+          centerLongitude: -94.69087,
+          latitudeDelta: 0.02,
+          longitudeDelta: 0.02
+        }
+      },
+      farm: {
+        latitude: 38.87695,
+        longitude: -94.70326,
+        name: 'Farm',
+        region: {
+          centerLatitude: 38.87695,
+          centerLongitude: -94.70326,
+          latitudeDelta: 0.02,
+          longitudeDelta: 0.02
+        }
+      },
+      arts: {
+        latitude: 38.94148,
+        longitude: -94.66798,
+        name: 'Arts Center',
+        region: {
+          centerLatitude: 38.94148,
+          centerLongitude: -94.66798,
+          latitudeDelta: 0.02,
+          longitudeDelta: 0.02
+        }
+      }
+    };
+
+    // Default region (centered between all locations)
+    const DEFAULT_REGION = {
+      centerLatitude: 38.87,
+      centerLongitude: -94.68,
+      latitudeDelta: 0.25,
+      longitudeDelta: 0.25
+    };
+
+    let map;
+    let currentLocation = null;
+    let pois = [];
+
+    // Category to SVG icon mapping
+    const CATEGORY_ICONS = {
+      'Animals': 'images/animals.svg',
+      'Art Installation': 'images/art.svg',
+      'Building': 'images/building.svg',
+      'Garden': 'images/garden.svg',
+      'Help Desk': 'images/help.svg',
+      'Playground': 'images/playground.svg',
+      'POI': 'images/poi.svg',
+      'Restroom': 'images/restroom.svg',
+      'Seat': 'images/seat.svg',
+      'Shop': 'images/shop.svg',
+      'Tree': 'images/tree.svg'
+    };
+
+    // Get icon URL based on category
+    function getIconForCategory(category) {
+      return CATEGORY_ICONS[category] || 'images/poi.svg'; // Default to poi.svg if category not found
+    }
+
+    // Get URL parameters
+    function getURLParameter(name) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(name);
+    }
+
+    // Load POIs from JSON file
+    async function loadPOIs() {
+      try {
+        const response = await fetch('json/pois.json');
+        if (!response.ok) {
+          throw new Error('Failed to load POIs');
+        }
+        pois = await response.json();
+        console.log(`Loaded ${pois.length} POIs`);
+        return pois;
+      } catch (error) {
+        console.error('Error loading POIs:', error);
+        return [];
+      }
+    }
+
+    // Add POI markers to the map
+    function addPOIMarkers() {
+      if (!map || pois.length === 0) return;
+
+      pois.forEach(poi => {
+        const coordinate = new mapkit.Coordinate(poi.latitude, poi.longitude);
+
+        // Get the appropriate icon based on category
+        const iconUrl = getIconForCategory(poi.category);
+
+        // Create annotation with custom element
+        const annotation = new mapkit.Annotation(coordinate, (coordinate, options) => {
+          // Create container for icon and label
+          const container = document.createElement('div');
+          container.style.cssText = 'display: flex; flex-direction: column; align-items: center; cursor: pointer;';
+
+          // Create icon
+          const iconImg = document.createElement('img');
+          iconImg.src = iconUrl;
+          iconImg.style.cssText = 'width: 30px; height: 30px; display: block;';
+          iconImg.alt = poi.name;
+
+          // Create label
+          const label = document.createElement('div');
+          label.className = 'poi-name-label';
+          label.textContent = poi.name;
+
+          container.appendChild(iconImg);
+          container.appendChild(label);
+
+          return container;
+        }, {
+          title: poi.name,
+          subtitle: poi.category,
+          data: poi
+        });
+
+        annotation.data = poi;
+
+        // Add callout information
+        annotation.callout = {
+          calloutElementForAnnotation: (annotation) => {
+            const calloutDiv = document.createElement('div');
+            calloutDiv.className = 'poi-callout';
+            calloutDiv.style.cssText = 'padding: 10px; max-width: 250px;';
+
+            const title = document.createElement('h3');
+            title.textContent = annotation.data.name;
+            title.style.cssText = 'margin: 0 0 5px 0; font-size: 16px; font-weight: bold;';
+            calloutDiv.appendChild(title);
+
+            if (annotation.data.category) {
+              const category = document.createElement('p');
+              category.textContent = annotation.data.category;
+              category.style.cssText = 'margin: 0 0 5px 0; color: #666; font-size: 12px;';
+              calloutDiv.appendChild(category);
+            }
+
+            if (annotation.data.description) {
+              const description = document.createElement('p');
+              description.textContent = annotation.data.description;
+              description.style.cssText = 'margin: 0 0 10px 0; font-size: 14px;';
+              calloutDiv.appendChild(description);
+            }
+
+            if (annotation.data.imageURL) {
+              const image = document.createElement('img');
+              image.src = annotation.data.imageURL;
+              image.alt = annotation.data.name;
+              image.style.cssText = 'width: 100%; height: auto; border-radius: 5px; margin-top: 5px;';
+              calloutDiv.appendChild(image);
+            }
+
+            return calloutDiv;
+          }
+        };
+
+        map.addAnnotation(annotation);
+      });
+
+      console.log(`Added ${pois.length} POI markers to map`);
+    }
+
+    // Initialize MapKit
+    async function initMapKit() {
+      try {
+        // Initialize MapKit with your token
+        mapkit.init({
+          authorizationCallback: (done) => {
+            const JWT_TOKEN = 'eyJraWQiOiJYQ1RKQ1lYMkEzIiwidHlwIjoiSldUIiwiYWxnIjoiRVMyNTYifQ.eyJpc3MiOiJRNThBTlBFTTlGIiwiaWF0IjoxNzYxMDU2NzkwLCJleHAiOjE3NjE3MjExOTl9.6DON3QinuE6L9fsSgoVJJKN183H7aRL0jFTftP_ZYrgML9SJotaVS9I-cA-9ue6A9YZz6zPbENE09KvXwRoeWw';
+            done(JWT_TOKEN);
+          },
+          language: 'en'
+        });
+
+        // Create the map
+        map = new mapkit.Map('map', {
+          mapType: mapkit.Map.MapTypes.Standard,
+          showsMapTypeControl: false,
+          showsZoomControl: true,
+          showsUserLocationControl: true,
+          showsCompass: mapkit.FeatureVisibility.Adaptive
+        });
+
+        // Check if a location parameter was provided
+        const locationParam = getURLParameter('location');
+
+        if (locationParam && LOCATIONS[locationParam]) {
+          currentLocation = LOCATIONS[locationParam];
+          map.region = new mapkit.CoordinateRegion(
+            new mapkit.Coordinate(currentLocation.region.centerLatitude, currentLocation.region.centerLongitude),
+            new mapkit.CoordinateSpan(currentLocation.region.latitudeDelta, currentLocation.region.longitudeDelta)
+          );
+
+          // Add a marker for the selected location
+          addLocationMarker(currentLocation);
+        } else {
+          // Use default region showing all locations
+          map.region = new mapkit.CoordinateRegion(
+            new mapkit.Coordinate(DEFAULT_REGION.centerLatitude, DEFAULT_REGION.centerLongitude),
+            new mapkit.CoordinateSpan(DEFAULT_REGION.latitudeDelta, DEFAULT_REGION.longitudeDelta)
+          );
+
+          // Add markers for all locations
+          Object.values(LOCATIONS).forEach(location => {
+            addLocationMarker(location);
+          });
+        }
+
+        // Load and display POIs
+        await loadPOIs();
+        addPOIMarkers();
+
+        // Hide loading spinner
+        document.getElementById('loading').style.display = 'none';
+
+      } catch (error) {
+        console.error('Error initializing MapKit:', error);
+        let errorMessage = 'Error loading map. ';
+
+        if (error.message) {
+          errorMessage += error.message;
+        } else {
+          errorMessage += 'Please check your MapKit JS token and ensure it is valid.';
+        }
+
+        document.getElementById('loading').innerHTML =
+          `<div class="text-red-600 bg-white p-4 rounded-lg shadow-lg max-w-lg mx-auto">
+            <h3 class="font-bold mb-2">MapKit Error</h3>
+            <p>${errorMessage}</p>
+            <p class="mt-2 text-sm text-gray-600">Check the browser console for more details.</p>
+          </div>`;
+      }
+    }
+
+    // Add a marker for a location
+    function addLocationMarker(location) {
+      const coordinate = new mapkit.Coordinate(location.latitude, location.longitude);
+
+      const annotation = new mapkit.MarkerAnnotation(coordinate, {
+        title: location.name,
+        color: '#3b82f6',
+        glyphText: '📍'
+      });
+
+      map.addAnnotation(annotation);
+    }
+
+    // Event Listeners
+    document.getElementById('homeBtn').addEventListener('click', () => {
+      window.location.href = 'index.html';
+    });
+
+    document.getElementById('recenterBtn').addEventListener('click', () => {
+      if (currentLocation) {
+        map.region = new mapkit.CoordinateRegion(
+          new mapkit.Coordinate(currentLocation.region.centerLatitude, currentLocation.region.centerLongitude),
+          new mapkit.CoordinateSpan(currentLocation.region.latitudeDelta, currentLocation.region.longitudeDelta)
+        );
+      } else {
+        map.region = new mapkit.CoordinateRegion(
+          new mapkit.Coordinate(DEFAULT_REGION.centerLatitude, DEFAULT_REGION.centerLongitude),
+          new mapkit.CoordinateSpan(DEFAULT_REGION.latitudeDelta, DEFAULT_REGION.longitudeDelta)
+        );
+      }
+    });
+
+    // Initialize the map when the page loads
+    document.addEventListener('DOMContentLoaded', () => {
+      // Wait for MapKit JS to load
+      const checkMapKit = setInterval(() => {
+        if (typeof mapkit !== 'undefined') {
+          clearInterval(checkMapKit);
+          initMapKit();
+        }
+      }, 100);
+
+      // Timeout after 10 seconds
+      setTimeout(() => {
+        if (typeof mapkit === 'undefined') {
+          clearInterval(checkMapKit);
+          console.error('MapKit JS failed to load');
+          document.getElementById('loading').innerHTML =
+            '<div class="text-red-600 bg-white p-4 rounded-lg shadow-lg">MapKit JS failed to load. Please check your internet connection.</div>';
+        }
+      }, 10000);
+    });
+  </script>
+
+</body>
+</html>
