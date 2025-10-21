@@ -10,7 +10,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
 
   <!-- Custom CSS -->
-  <link rel="stylesheet" href="cssstyles.css">
+  <link rel="stylesheet" href="styles.css">
 
   <!-- Apple MapKit JS -->
   <script src="https://cdn.apple-mapkit.com/mk/5.x.x/mapkit.js" crossorigin async></script>
@@ -33,10 +33,12 @@
         <button id="closeModal" class="close-btn">&times;</button>
       </div>
       <div class="modal-body">
+        
         <div class="layer-controls">
           <button id="showAllBtn" class="control-btn">Show All</button>
           <button id="hideAllBtn" class="control-btn">Hide All</button>
         </div>
+        <p class="mb-1 ml-3 text-gray-700">Categories</p>
         <div class="layer-list">
           <label class="layer-item">
             <img src="images/animals.svg" alt="" class="layer-icon">
@@ -94,6 +96,15 @@
             <input type="checkbox" class="layer-checkbox" data-category="Tree" checked>
           </label>
         </div>
+        <p class="mb-1 mt-6 ml-3 text-gray-700">Trail Routes</p>
+        <div class="layer-list">
+
+          <label class="layer-item">
+            <img src="images/trail.svg" alt="" class="layer-icon">
+            <span>Trails</span>
+            <input type="checkbox" class="layer-checkbox" data-category="Trails" checked>
+          </label>
+        </div>        
       </div>
     </div>
   </div>
@@ -162,11 +173,23 @@
     let pois = [];
     let poiAnnotations = {}; // Store annotations by category
     let trailOverlays = []; // Store trail overlays
+    let trailAnnotations = []; // Store trail marker annotations
 
     // Trail GeoJSON files to load
     const TRAIL_FILES = [
-      'json/marder-garden-path.geojson'
-      // Add more trail files here as needed
+'json/ancillary-paths.geojson',
+'json/bluff-loop.geojson',
+'json/cottonwood-trail.geojson',
+'json/enchanted-forest-loop.geojson',
+'json/karens-path.geojson',
+'json/legacy-garden-path.geojson',
+'json/lower-meadow.geojson',
+'json/marder-garden-path.geojson',
+'json/prairie-loop.geojson',
+'json/rocky-ridge.geojson',
+'json/sculpture-garden-loop.geojson',
+'json/west-trail.geojson',
+'json/whitetail-pass.geojson'
     ];
 
     // Category to SVG icon mapping
@@ -323,6 +346,7 @@
       };
 
       map.addAnnotation(annotation);
+      trailAnnotations.push(annotation); // Store trail annotation
       console.log(`Added trail marker for: ${trailName}`);
     }
 
@@ -638,7 +662,20 @@
 
     // Show category function
     function showCategory(category) {
-      if (poiAnnotations[category]) {
+      if (category === 'Trails') {
+        // Show trail overlays
+        trailOverlays.forEach(overlay => {
+          if (!map.overlays.includes(overlay)) {
+            map.addOverlay(overlay);
+          }
+        });
+        // Show trail marker annotations
+        trailAnnotations.forEach(annotation => {
+          if (!map.annotations.includes(annotation)) {
+            map.addAnnotation(annotation);
+          }
+        });
+      } else if (poiAnnotations[category]) {
         poiAnnotations[category].forEach(annotation => {
           if (!map.annotations.includes(annotation)) {
             map.addAnnotation(annotation);
@@ -649,7 +686,16 @@
 
     // Hide category function
     function hideCategory(category) {
-      if (poiAnnotations[category]) {
+      if (category === 'Trails') {
+        // Hide trail overlays
+        trailOverlays.forEach(overlay => {
+          map.removeOverlay(overlay);
+        });
+        // Hide trail marker annotations
+        trailAnnotations.forEach(annotation => {
+          map.removeAnnotation(annotation);
+        });
+      } else if (poiAnnotations[category]) {
         poiAnnotations[category].forEach(annotation => {
           map.removeAnnotation(annotation);
         });
