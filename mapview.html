@@ -367,18 +367,48 @@
               const trailInfo = properties.info || '';
               const trailDesc = properties.desc || '';
 
-              // Convert color names to hex values for MapKit
-              const colorMap = {
-                'yellow': '#FFD700',
-                'blue': '#0066CC',
-                'red': '#FF0000',
-                'green': '#00AA00',
-                'orange': '#FF8800',
-                'purple': '#9900CC',
-                'black': '#000000'
-              };
+              // Convert Swift color names to hex values for MapKit
+              function convertSwiftColorToHex(colorName) {
+                const normalizedColor = colorName.toLowerCase();
 
-              const strokeColor = colorMap[trailColor.toLowerCase()] || trailColor;
+                switch (normalizedColor) {
+                  case 'black':
+                    return '#000000';
+                  case 'blue':
+                    return '#0088ff';
+                  case 'brown':
+                    return '#ac7f5e';
+                  case 'cyan':
+                    return '#00c0e8';
+                  case 'gray':
+                    return '#8e8e94';
+                  case 'green':
+                    return '#35c759';
+                  case 'indigo':
+                    return '#6155f5';
+                  case 'mint':
+                    return '#00c8b3';
+                  case 'orange':
+                    return '#ff8d28';
+                  case 'pink':
+                    return '#ff2d55';
+                  case 'purple':
+                    return '#cb30e0';
+                  case 'red':
+                    return '#ff393c';
+                  case 'teal':
+                    return '#00c0e8';
+                  case 'white':
+                    return '#ffffff';
+                  case 'yellow':
+                    return '#ffcc00';
+                  default:
+                    // If not a recognized Swift color name, return as-is (might already be hex)
+                    return colorName;
+                }
+              }
+
+              const strokeColor = convertSwiftColorToHex(trailColor);
 
               // Create polyline overlays for each segment
               coordinates.forEach((segment, index) => {
@@ -522,7 +552,7 @@
         // Initialize MapKit with your token
         mapkit.init({
           authorizationCallback: (done) => {
-            const JWT_TOKEN = 'eyJraWQiOiJYQ1RKQ1lYMkEzIiwidHlwIjoiSldUIiwiYWxnIjoiRVMyNTYifQ.eyJpc3MiOiJRNThBTlBFTTlGIiwiaWF0IjoxNzYxMDU2NzkwLCJleHAiOjE3NjE3MjExOTl9.6DON3QinuE6L9fsSgoVJJKN183H7aRL0jFTftP_ZYrgML9SJotaVS9I-cA-9ue6A9YZz6zPbENE09KvXwRoeWw';
+            const JWT_TOKEN = 'eyJraWQiOiIzQjdVVzRNMlY2IiwidHlwIjoiSldUIiwiYWxnIjoiRVMyNTYifQ.eyJpc3MiOiJRNThBTlBFTTlGIiwiaWF0IjoxNzYxMTQ5MDAwLCJvcmlnaW4iOiJhcnRzcmVjZ3VpZGUuY29tIn0.9n18n8t6Zo8sCtGRcwRAHvbOgzaTVZpbgEM82R100-MD5cbDh_i3LQkELeJMZtDPSETEpkOIgpvM4gTmFtIurQ';
             done(JWT_TOKEN);
           },
           language: 'en'
