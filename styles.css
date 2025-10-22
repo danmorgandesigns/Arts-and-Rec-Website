@@ -367,3 +367,39 @@ body {
   font-size: 1rem;
   font-weight: bold;
 }
+
+.privacy-subhead {
+font-weight: 600;
+font-size: 1.125rem;
+  padding-top: 0.5rem;
+
+
+}
+
+.obvious-link {
+  color: #007AFF;
+  text-decoration: underline;
+}
+
+.subtle-link {
+  color: gray;
+}
+
+.subtle-link:hover {
+  color: #007AFF;
+}
+
+.info-text {
+  font-size: 1rem;
+}
+
+.info-text-subtle {
+  font-size: 1rem;
+  color: #404040;
+  font-style: italic;
+}
+
+hr {
+  border-color: lightgray;
+  border-width: 0.5px;
+}
