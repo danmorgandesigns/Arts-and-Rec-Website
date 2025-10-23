@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,67 +13,56 @@
   <!-- Custom CSS -->
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body class="bg-gradient-to-br from-green-50 to-blue-50 min-h-screen">
 
-  <div class="container mx-auto px-4 py-8 md:py-16">
+  <div class="container max-w-lg mx-auto px-4 py-8">
     <!-- Header -->
-    <header class="text-center mb-12 md:mb-16">
-      <h1 class="text-4xl md:text-6xl font-bold text-gray-800 mb-4">
-        Arts &amp; Rec Guide
+    <header class="text-center mb-4">
+      <h1 class="text-3xl font-bold text-gray-800 mb-1">
+        Welcome!
+      </h1>
+      <h1 class="text-lg font-bold text-gray-800 mb-4">
+        Overland Park Arts & Rec Guide
       </h1>
     </header>
 
     <!-- Main Content -->
-    <main class="max-w-4xl mx-auto">
-      <div class=" p-6 md:p-10">
-
-        <!-- Location Buttons -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-
-          <!-- Arboretum Button -->
-          <a href="mapview.html?location=arboretum"
-             class="location-btn transition-all duration-300 transform hover:scale-105 hover:shadow-lg block">
-            <img src="images/arboretum.svg" alt="Overland Park Arboretum and Botanical Gardens" class="w-full h-auto">
-          </a>
-
-          <!-- Farm Button -->
-          <a href="mapview.html?location=farm"
-             class="location-btn transition-all duration-300 transform hover:scale-105 hover:shadow-lg block">
-            <img src="images/farm.svg" alt="Deanna Rose Children's Farmstead" class="w-full h-auto">
-          </a>
-
-          <!-- Arts Center Button -->
-          <a href="mapview.html?location=arts"
-             class="location-btn transition-all duration-300 transform hover:scale-105 hover:shadow-lg block">
-            <img src="images/arts.svg" alt="Public Arts Center" class="w-full h-auto">
-          </a>
-
-        </div>
-
+    <main class="mx-auto">
+      <!-- Logo icons row -->
+      <div class="flex justify-between items-center mb-4">
+        <!-- arboretum icon (left) -->
+        <img src="images/arboretum.svg" alt="Overland Park Arboretum and Botanical Gardens" class="w-24 h-auto">
+        <!-- farm logo (middle) -->
+        <img src="images/farm.svg" alt="Deanna Rose Children's Farmstead" class="w-24 h-auto align-middle">
+        <!-- arts logo (right) -->
+        <img src="images/arts.svg" alt="Overland Park Public Arts" class="w-24 h-auto">
       </div>
-            <!-- Icon buttons row -->
-      <div class="flex justify-between items-center md:px-16 ">
-        <!-- Info button (left) -->
-        <a href="info.html" class="bg-gray-300 bg-opacity-50 rounded-full p-1.5 transition-all duration-200">
-          <img src="images/info-blue.svg" alt="Info" class="w-8 h-4">
-        </a>
-
-        <!-- Help button (right) -->
-        <a href="help.html" class="bg-gray-300 bg-opacity-50 rounded-full p-1.5 transition-all duration-200">
-          <img src="images/help-blue.svg" alt="Help" class="w-8 h-4">
-        </a>
+      <!-- <hr class="my-4"> -->
+      <p class="info-text mb-2 leading-tight">This site helps you explore the arboretum, farmstead, and public arts
+        installations supported by the Arts and Recreation Foundation of Overland Park.</p>
+      <p class="info-text mb-2 leading-tight">You can hide or show different points of interest (POIs) categories and hiking trails
+        by selecting the layers icon on the map view.</p>
+      </p>
+      <p class="info-text mb-2 leading-tight">Selecting a POI icon on the map view will display helpful information about it.
+        Your location on the map can be shown by selecting the location icon.</p>
+      <p class="info-text-subtle info-text mb-8 leading-tight">For optimal user experience when cell services is spotty,
+        please download the app from the App Store.</p> 
+<div class="text-center">
+        <a href="landing.html" class="pill-button">Continue</a>
       </div>
-    </main>
 
-    <footer class="mt-10 text-center text-gray-600 text-sm">
+  </div>
+  </main>
 
-
-      <!-- Existing footer content -->
-      <a href="https://apps.apple.com/us/app/overland-park-arts-rec-guide/id6753775759"><img src="images/app-store.svg" alt="Download from the App Store" class="w-32 h-auto mx-auto mb-1"></a>
-      <a href="https://danmorgandesigns.com" target="_blank">&copy; 2025 Dan Morgan Designs. All rights reserved.</a>
+  <footer class="mt-10 text-center text-gray-600 text-sm">
+    <a href="https://apps.apple.com/us/app/overland-park-arts-rec-guide/id6753775759"><img src="images/app-store.svg"
+        alt="Download from the App Store" class="w-32 h-auto mx-auto mb-1"></a>
+    <a href="https://danmorgandesigns.com" target="_blank">&copy; 2025 Dan Morgan Designs. All rights reserved.</a>
     </p><a href="privacy.html">Privacy Policy</a>
-    </footer>
+  </footer>
   </div>
 
 </body>
+
 </html>

@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Arts & Rec Guide">
+  <title>Arts &amp; Rec Guide</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gradient-to-br from-green-50 to-blue-50 min-h-screen">
+
+  <div class="container mx-auto px-4 py-8 md:py-16">
+    <!-- Header -->
+    <header class="text-center mb-12 md:mb-16">
+      <h1 class="text-4xl md:text-6xl font-bold text-gray-800 mb-4">
+        Arts &amp; Rec Guide
+      </h1>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto">
+      <div class=" p-6 md:p-10">
+
+        <!-- Location Buttons -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+
+          <!-- Arboretum Button -->
+          <a href="mapview.html?location=arboretum"
+             class="location-btn transition-all duration-300 transform hover:scale-105 hover:shadow-lg block">
+            <img src="images/arboretum.svg" alt="Overland Park Arboretum and Botanical Gardens" class="w-full h-auto">
+          </a>
+
+          <!-- Farm Button -->
+          <a href="mapview.html?location=farm"
+             class="location-btn transition-all duration-300 transform hover:scale-105 hover:shadow-lg block">
+            <img src="images/farm.svg" alt="Deanna Rose Children's Farmstead" class="w-full h-auto">
+          </a>
+
+          <!-- Arts Center Button -->
+          <a href="mapview.html?location=arts"
+             class="location-btn transition-all duration-300 transform hover:scale-105 hover:shadow-lg block">
+            <img src="images/arts.svg" alt="Public Arts Center" class="w-full h-auto">
+          </a>
+
+        </div>
+
+      </div>
+            <!-- Icon buttons row -->
+      <div class="flex justify-between items-center md:px-16 ">
+        <!-- Info button (left) -->
+        <a href="info.html" class="bg-gray-300 bg-opacity-50 rounded-full p-1.5 transition-all duration-200">
+          <img src="images/info-blue.svg" alt="Info" class="w-8 h-4">
+        </a>
+
+        <!-- Help button (right) -->
+        <a href="help.html" class="bg-gray-300 bg-opacity-50 rounded-full p-1.5 transition-all duration-200">
+          <img src="images/help-blue.svg" alt="Help" class="w-8 h-4">
+        </a>
+      </div>
+    </main>
+
+    <footer class="mt-10 text-center text-gray-600 text-sm">
+
+
+      <!-- Existing footer content -->
+      <a href="https://apps.apple.com/us/app/overland-park-arts-rec-guide/id6753775759"><img src="images/app-store.svg" alt="Download from the App Store" class="w-32 h-auto mx-auto mb-1"></a>
+      <a href="https://danmorgandesigns.com" target="_blank">&copy; 2025 Dan Morgan Designs. All rights reserved.</a>
+    </p><a href="privacy.html">Privacy Policy</a>
+    </footer>
+  </div>
+
+</body>
+</html>
