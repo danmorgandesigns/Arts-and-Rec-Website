@@ -1356,15 +1356,6 @@
   },
 
   {
-  "name": "Seat-1",
-  "latitude": 38.79968617842271,
-  "longitude": -94.69072254977991,
-  "category": "Seat",
-  "description": "",
-  "imageURL": null
-  },
-
-  {
   "name": "Soaring",
   "latitude": 38.9398311591364,
   "longitude": -94.64146038325725,
@@ -1847,7 +1838,7 @@
   "latitude": 38.87653182987291,
   "longitude": -94.70210722649459,
   "category": "Seat",
-  "description": "",
+  "description": "Located on the Enchanted Trail",
   "imageURL": null
   },
 
