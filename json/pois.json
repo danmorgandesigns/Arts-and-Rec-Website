@@ -298,7 +298,7 @@
     "longitude": -94.69068739338296,
     "category": "Garden",
     "description": "Beautiful all year round, the Marder woodland garden offers a shaded walk along a babbling brook.",
-    "imageURL": null
+    "imageURL": "https://pub-72189a9fcbe14795a4c931768d96e8a4.r2.dev/marder-garden-entrance.jpg"
   },
   {
     "name": "Marder Pergola",
@@ -418,7 +418,7 @@
     "longitude": -94.69147503395297,
     "category": "Garden",
     "description": "",
-    "imageURL": null
+    "imageURL": "https://pub-72189a9fcbe14795a4c931768d96e8a4.r2.dev/margarets-pond.jpg"
   },
   {
     "name": "Environmental Education Center (ECC)",
@@ -479,7 +479,7 @@
   "longitude": -94.6902687146718,
   "category": "Seat",
   "description": "",
-  "imageURL": null
+  "imageURL": "https://pub-72189a9fcbe14795a4c931768d96e8a4.r2.dev/joshs-story.jpg"
   },
 
 
@@ -632,7 +632,7 @@
   "longitude": -94.69220888675011,
   "category": "Garden",
   "description": "Presented to The Children of Our Community by the men and women of the Rotary Club of Overland Park and Overland Park South Rotary Club. Dedicated May 21, 2000.",
-  "imageURL": null
+  "imageURL": "https://pub-72189a9fcbe14795a4c931768d96e8a4.r2.dev/childrens-garden.jpg"
   },
 
 
@@ -1356,7 +1356,7 @@
   },
 
   {
-  "name": "Seat",
+  "name": "Seat-1",
   "latitude": 38.79968617842271,
   "longitude": -94.69072254977991,
   "category": "Seat",
@@ -1843,7 +1843,7 @@
   },
 
   {
-  "name": "Seat",
+  "name": "Seat-2",
   "latitude": 38.87653182987291,
   "longitude": -94.70210722649459,
   "category": "Seat",
