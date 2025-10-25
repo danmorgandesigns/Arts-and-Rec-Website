@@ -152,10 +152,17 @@ body {
 /* POI and Trail Callout Styles */
 .poi-callout {
   padding: 12px;
-  max-width: 250px;
+  max-width: 300px;
   background: white;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Desktop/tablet callout width */
+@media (min-width: 768px) {
+  .poi-callout {
+    max-width: 450px;
+  }
 }
 
 .callout-title {
