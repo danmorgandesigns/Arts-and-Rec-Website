@@ -281,7 +281,7 @@
     "longitude": -94.68976719238088,
     "category": "Garden",
     "description": "The legacy garden showcases plants that may have been seen on Kansas homesteads. There are four time capsules in this garden that are opened every 25 years.",
-    "imageURL": null
+    "imageURL": "https://pub-72189a9fcbe14795a4c931768d96e8a4.r2.dev/legacy-garden.jpg"
   },
   {
     "name": "Little Scoundrel",
@@ -1159,6 +1159,14 @@
   "description": "By Gary Lee Price, 2013.",
   "imageURL": "https://pub-72189a9fcbe14795a4c931768d96e8a4.r2.dev/monet.jpg"
   },
+    {
+    "imageURL" : "https://pub-72189a9fcbe14795a4c931768d96e8a4.r2.dev/monet-benches.jpg",
+    "longitude" : -94.69003021678884,
+    "description" : "",
+    "name" : "Monet Wooden Benches",
+    "latitude" : 38.80133245310283,
+    "category" : "Seat"
+  }.
 
   {
   "name": "Barbara’s Patio",
@@ -1834,7 +1842,7 @@
   },
 
   {
-  "name": "Seat-2",
+  "name": "Seat",
   "latitude": 38.87653182987291,
   "longitude": -94.70210722649459,
   "category": "Seat",
