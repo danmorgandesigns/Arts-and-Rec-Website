@@ -4,9 +4,9 @@
     {
       "properties" : {
                 "name": "Cottonwood Trail",
-                "desc": "Short trail from the Sculpture Garden through the Bird Watching area and into the Legacy Garden.",
+                "description": "Short trail from the Sculpture Garden through the Bird Watching area and into the Legacy Garden.",
                 "color": "green",
-                "info" : "Length: 0.38 miles. Elevation gain: 5 feet."
+                "info" : "Length: 0.38 miles. Elevation gain: 5 feet.",
                 "imageURL": "https://pub-72189a9fcbe14795a4c931768d96e8a4.r2.dev/cottonwood-trail.jpg"
       },
       "type" : "Feature",
