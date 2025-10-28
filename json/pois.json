@@ -1,4 +1,12 @@
 [
+  {
+    "longitude" : -94.69708620677237,
+    "description" : "",
+    "name" : "Picnic Table on Karen\u2019s Path",
+    "category" : "Seat",
+    "latitude" : 38.79644450909474,
+    "imageURL" : ""
+  },
     {
       "latitude" : 38.79941702539427,
       "name" : "Stone Bench",
@@ -273,7 +281,7 @@
     "longitude": -94.68990098115458,
     "category": "Garden",
     "description": "The Monet Garden captures the subtle blending of soft colors and shapes typical in the original Monet gardens.",
-    "imageURL": null
+    "imageURL": "https://pub-72189a9fcbe14795a4c931768d96e8a4.r2.dev/monets-garden.jpg"
   },
   {
     "name": "Legacy Garden",
@@ -691,7 +699,7 @@
   "longitude": -94.69233815925892,
   "category": "POI",
   "description": "",
-  "imageURL": null
+  "imageURL": "https://pub-72189a9fcbe14795a4c931768d96e8a4.r2.dev/hilltop.jpg"
   },
 
 
@@ -731,7 +739,7 @@
   "longitude": -94.69009458805557,
   "category": "POI",
   "description": "",
-  "imageURL": null
+  "imageURL": "https://pub-72189a9fcbe14795a4c931768d96e8a4.r2.dev/stous-promenade.jpg"
   },
 
 
