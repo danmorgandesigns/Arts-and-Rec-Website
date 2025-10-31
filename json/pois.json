@@ -1,5 +1,14 @@
 [
   {
+    "name" : "9/11 Firefighters Memorial",
+    "category" : "Art Installation",
+    "longitude" : -94.68306,
+    "description" : "",
+    "imageURL" : "https://pub-72189a9fcbe14795a4c931768d96e8a4.r2.dev/9-11-memorial.jpg",
+    "latitude" : 38.90270
+  },
+
+  {
     "name" : "Boy with Frog",
     "category" : "Art Installation",
     "longitude" : -94.70158592879466,
