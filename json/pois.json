@@ -273,7 +273,7 @@
     "longitude": -94.68820,
     "category": "Garden",
     "description": "The international sculpture garden is a series of sculptures on permanent display along a nearly half-mile loop through a dry oak savanna ecosystem.",
-    "imageURL": null
+    "imageURL": "https://pub-72189a9fcbe14795a4c931768d96e8a4.r2.dev/international-garden.jpg"
   },
   {
     "name": "East Pavilion",
@@ -281,7 +281,7 @@
     "longitude": -94.68857178247146,
     "category": "Seat",
     "description": "Covered patio with picnic tables for group events.",
-    "imageURL": null
+    "imageURL": "https://pub-72189a9fcbe14795a4c931768d96e8a4.r2.dev/east-pavilion.jpg"
   },
   {
     "name": "Restrooms",
@@ -466,7 +466,7 @@
     "longitude": -94.68859314420217,
     "category": "Building",
     "description": "",
-    "imageURL": null
+    "imageURL": "https://pub-72189a9fcbe14795a4c931768d96e8a4.r2.dev/east-kiosk-entrance.jpg"
   },
   {
   "name": "Barton P. Cohen Overlook",
@@ -522,7 +522,7 @@
   "longitude": -94.68948159714789,
   "category": "POI",
   "description": "Enjoy quietly. Dogs prohibited in this area. Please share your sightings with us.",
-  "imageURL": null
+  "imageURL": "https://pub-72189a9fcbe14795a4c931768d96e8a4.r2.dev/bird-watch.jpg"
   },
 
 
@@ -607,7 +607,7 @@
   "longitude": -94.69251280150915,
   "category": "POI",
   "description": "",
-  "imageURL": null
+  "imageURL": "https://pub-72189a9fcbe14795a4c931768d96e8a4.r2.dev/council-ring.jpg"
   },
 
 
@@ -636,7 +636,7 @@
   "longitude": -94.69247593250881,
   "category": "POI",
   "description": "",
-  "imageURL": null
+  "imageURL": "https://pub-72189a9fcbe14795a4c931768d96e8a4.r2.dev/childrens-hill.jpg"
   },
 
 
@@ -676,7 +676,7 @@
   "longitude": -94.69130974340258,
   "category": "POI",
   "description": "Created by Chief Lee Yellow Eyes in cooperation with the traditional Southern Cheyenne Indian Nation. Dedicated November 19, 2001",
-  "imageURL": "https://pub-72189a9fcbe14795a4c931768d96e8a4.r2.dev/medicine-wheel-notes.jpg"
+  "imageURL": "https://pub-72189a9fcbe14795a4c931768d96e8a4.r2.dev/medicine-wheel.jpg"
   },
 
   {
@@ -695,7 +695,7 @@
   "longitude": -94.69142760631918,
   "category": "Garden",
   "description": "Donated by Dick and Georgia Erickson, August 1996.",
-  "imageURL": null
+  "imageURL": "https://pub-72189a9fcbe14795a4c931768d96e8a4.r2.dev/erickson-water-garden.jpg"
   },
 
 
@@ -735,7 +735,7 @@
   "longitude": -94.69052089966425,
   "category": "Seat",
   "description": "A gift from Chuch and Karen Haake. Dedicated July 2011.",
-  "imageURL": null
+  "imageURL": "https://pub-72189a9fcbe14795a4c931768d96e8a4.r2.dev/haake-celecration-terrace.jpg"
   },
 
 
@@ -745,7 +745,7 @@
   "longitude": -94.69054196012767,
   "category": "POI",
   "description": "",
-  "imageURL": null
+  "imageURL": "https://pub-72189a9fcbe14795a4c931768d96e8a4.r2.dev/lakeside-amphitheater.jpg"
   },
 
 
@@ -1075,7 +1075,7 @@
   "longitude": -94.69086350455446,
   "category": "Seat",
   "description": "",
-  "imageURL": null
+  "imageURL": "https://pub-72189a9fcbe14795a4c931768d96e8a4.r2.dev/allies-glade.jpg"
   },
 
 
@@ -1436,7 +1436,7 @@
   "longitude": -94.70286361672433,
   "category": "Shop",
   "description": "Vic\u2019s General Store, Alex + Emily\u2019s Ice Cream Parlor, Ben\u2019s Bank, Pat\u2019s Photography Parlor, Ray\u2019s Barbershop, John\u2019s Blacksmith Shop",
-  "imageURL": null
+  "imageURL": "https://pub-72189a9fcbe14795a4c931768d96e8a4.r2.dev/mainstreet-shops.jpg"
   },
   
   {
@@ -1445,7 +1445,7 @@
   "longitude": -94.70273,
   "category": "Building",
   "description": "Stop by and watch and visit with blacksmiths working with a forge.",
-  "imageURL": null
+  "imageURL": "https://pub-72189a9fcbe14795a4c931768d96e8a4.r2.dev/johns-blacksmith.jpg"
   },
 
   {
@@ -1454,7 +1454,7 @@
   "longitude": -94.70305,
   "category": "POI",
   "description": "",
-  "imageURL": null
+  "imageURL": "https://pub-72189a9fcbe14795a4c931768d96e8a4.r2.dev/mackenzies-island.jpg"
   },
 
   {
@@ -1581,7 +1581,7 @@
   "longitude": -94.70445823639488,
   "category": "Building",
   "description": "",
-  "imageURL": null
+  "imageURL": "https://pub-72189a9fcbe14795a4c931768d96e8a4.r2.dev/mine-shack.jpg"
   },
 
   {
@@ -1617,7 +1617,7 @@
   "longitude": -94.70438351399828,
   "category": "Playground",
   "description": "",
-  "imageURL": null
+  "imageURL": "https://pub-72189a9fcbe14795a4c931768d96e8a4.r2.dev/morgans-playground.jpg"
   },
 
   {
@@ -1626,7 +1626,7 @@
   "longitude": -94.70462561164604,
   "category": "Seat",
   "description": "",
-  "imageURL": null
+  "imageURL": "https://pub-72189a9fcbe14795a4c931768d96e8a4.r2.dev/prairie-pavillion.jpg"
   },
 
   {
@@ -1635,7 +1635,7 @@
   "longitude": -94.70351424332267,
   "category": "Animals",
   "description": "",
-  "imageURL": null
+  "imageURL": "https://pub-72189a9fcbe14795a4c931768d96e8a4.r2.dev/georgias-chickencoop.jpg"
   },
 
   {
@@ -1644,7 +1644,7 @@
   "longitude": -94.7027515983502,
   "category": "Seat",
   "description": "",
-  "imageURL": null
+  "imageURL": "https://pub-72189a9fcbe14795a4c931768d96e8a4.r2.dev/gayles-exploration-outpost.jpg"
   },
 
   {
@@ -1653,7 +1653,7 @@
   "longitude": -94.70284407229947,
   "category": "Playground",
   "description": "",
-  "imageURL": null
+  "imageURL": "https://pub-72189a9fcbe14795a4c931768d96e8a4.r2.dev/prairie-playground.jpg"
   },
 
   {
@@ -1680,7 +1680,7 @@
   "longitude": -94.70144394264041,
   "category": "Seat",
   "description": "",
-  "imageURL": null
+  "imageURL": "https://pub-72189a9fcbe14795a4c931768d96e8a4.r2.dev/friends-plaza.jpg"
   },
 
   {
@@ -1734,7 +1734,7 @@
   "longitude": -94.70136689349755,
   "category": "Garden",
   "description": "",
-  "imageURL": null
+  "imageURL": "https://pub-72189a9fcbe14795a4c931768d96e8a4.r2.dev/koi-pond.jpg"
   },
 
   {
@@ -1770,7 +1770,7 @@
   "longitude": -94.70218274400989,
   "category": "Animals",
   "description": "",
-  "imageURL": null
+  "imageURL": "https://pub-72189a9fcbe14795a4c931768d96e8a4.r2.dev/brians-turkeycoop.jpg"
   },
 
   {
@@ -1788,7 +1788,7 @@
   "longitude": -94.70176813402195,
   "category": "Garden",
   "description": "",
-  "imageURL": null
+  "imageURL": "https://pub-72189a9fcbe14795a4c931768d96e8a4.r2.dev/master-garden.jpg"
   },
 
   {
@@ -1869,7 +1869,7 @@
   "longitude": -94.70151126682775,
   "category": "Building",
   "description": "",
-  "imageURL": null
+  "imageURL": "https://pub-72189a9fcbe14795a4c931768d96e8a4.r2.dev/draft-horse-depot.jpg"
   },
 
   {
@@ -1905,7 +1905,7 @@
   "longitude": -94.70221930119254,
   "category": "Playground",
   "description": "",
-  "imageURL": null
+  "imageURL": "https://pub-72189a9fcbe14795a4c931768d96e8a4.r2.dev/play-barn.jpg"
   },
   
   {
