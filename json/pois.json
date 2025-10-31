@@ -1,5 +1,21 @@
 [
   {
+    "name" : "Boy with Frog",
+    "category" : "Art Installation",
+    "longitude" : -94.70158592879466,
+    "description" : "By Tom Corbin, 2000",
+    "imageURL" : "https://pub-72189a9fcbe14795a4c931768d96e8a4.r2.dev/boy-with-from.jpg",
+    "latitude" : 38.878020192949265
+  },
+  {
+    "name" : "Lily",
+    "category" : "Art Installation",
+    "longitude" : -94.70158520749067,
+    "description" : "By Mary Lynn Swafford",
+    "imageURL" : "https://pub-72189a9fcbe14795a4c931768d96e8a4.r2.dev/lily.jpg",
+    "latitude" : 38.877551920203466
+  },
+  {
     "longitude" : -94.69708620677237,
     "description" : "",
     "name" : "Picnic Table on Karen\u2019s Path",
@@ -645,11 +661,11 @@
 
 
   {
-  "name": "Serenity Point",
+  "name": "Margie's Serenity Point",
   "latitude": 38.80026781829516,
   "longitude": -94.69187392958401,
   "category": "Seat",
-  "description": "",
+  "description": "In Memory of Margie Engelkemier and to and to honor the arboretum volunteers. Dedicated July 2011. Given by the Engelkemier Family and Friends of the Arboretum.",
   "imageURL": "https://pub-72189a9fcbe14795a4c931768d96e8a4.r2.dev/serenity-point.jpg"
   },
 
