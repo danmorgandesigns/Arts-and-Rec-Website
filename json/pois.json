@@ -1,5 +1,23 @@
 [
   {
+    "latitude" : 38.7952358303363,
+    "name" : "Shortcut",
+    "category" : "POI",
+    "imageURL" : "",
+    "longitude" : -94.69385033097366,
+    "description" : "This shortcut is not on the physical maps."
+  },
+  
+  {
+    "latitude" : 38.80034726268071,
+    "name" : "Dry Oak-Hickory",
+    "category" : "POI",
+    "imageURL" : "https://pub-72189a9fcbe14795a4c931768d96e8a4.r2.dev/dry-oak-hickory.jpg",
+    "longitude" : -94.68849035774788,
+    "description" : "The Dry Oak-Hickory forest is a typical ecosystem for this area, as well as much of eastern and central North America. At the Arboretum, it is found any the north side of Wolf Creek above the floodplain and also the higher areas south of Wolf Creek where the soil is dries than in the floodplain. Post Oak, Black Oak, and Shagbark Hickory, the dominant frees here are examples of \"deciduous\" trees, meaning they lose their leaves to the fall and winter. By contrast, \"evergreen\" trees, such as cedar, pine, and spruce stay green year-round. The Eastern Red Cedar is the only evergreen tree native to Kansas."
+  },
+  
+  {
     "name" : "9/11 Firefighters Memorial",
     "category" : "Art Installation",
     "longitude" : -94.68306,
@@ -459,7 +477,7 @@
     "longitude": -94.68932275363001,
     "category": "Building",
     "description": "Located just beyond the entrance to the Arboretum & Botanical Gardens, the environmental education visitors center is the starting point for guests and includes its own seasonal plantings and pots.",
-    "imageURL": null
+    "imageURL": "https://pub-72189a9fcbe14795a4c931768d96e8a4.r2.dev/ecc.jpg"
   },
   {
     "name": "Corazon II",
@@ -578,7 +596,7 @@
   "longitude": -94.6937807683514,
   "category": "POI",
   "description": "This ecosystem lies in the floodplain created by Wolf Creek, which flows through the Arboretum. Floodplains are low areas next to streams and rivers that are created as the moving water erodes sideways or \"meanders\". Water moves fastest on the outside of the meanders (curves), which causes erosion and steep banks. On the inside of the curves, slower moving water drops sediments that cause sand, mud and gravel bars. The floodplain will experience flooding in times of extremely heavy rainfall or runoff. Here you will see moisture-loving trees such as the Sycamore and Eastern Cottonwood.",
-  "imageURL": null
+  "imageURL": "https://pub-72189a9fcbe14795a4c931768d96e8a4.r2.dev/riparian-woodland.jpg"
   },
 
   {
