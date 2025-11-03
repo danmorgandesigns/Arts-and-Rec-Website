@@ -1,5 +1,14 @@
 [
   {
+    "latitude" : 38.79629,
+    "name" : "Old Duck Pond",
+    "category" : "POI",
+    "imageURL" : "",
+    "longitude" : -94.69925,
+    "description" : ""
+  },
+
+  {
     "latitude" : 38.7952358303363,
     "name" : "Shortcut",
     "category" : "POI",
