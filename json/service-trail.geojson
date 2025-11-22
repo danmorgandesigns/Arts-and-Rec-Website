@@ -5,7 +5,7 @@
         "name" : "Service Trail",
         "description" : "",
         "imageURL" : "",
-        "color" : "teal",
+        "color" : "gray",
         "info" : "Length: 0.09 miles. Elevation gain: 5 feet."
       },
       "type" : "Feature",

@@ -367,8 +367,8 @@
       "type" : "Feature",
       "properties" : {
         "imageURL" : "",
-        "color" : "blue",
-        "name" : "Prairie Shortcut A",
+        "color" : "gray",
+        "name" : "Shortcut",
         "info" : "Length: 0.25 miles. Elevation gain: 0 feet.",
         "description" : ""
       }

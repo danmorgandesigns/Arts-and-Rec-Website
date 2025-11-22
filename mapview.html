@@ -266,17 +266,50 @@
       return trails;
     }
 
-    // Calculate the midpoint of a trail for marker placement
-    function getTrailMidpoint(coordinates) {
+    // Calculate distance between two coordinates in miles using Haversine formula
+    function calculateDistance(coord1, coord2) {
+      const R = 3959; // Earth's radius in miles
+      const lat1 = coord1[1] * Math.PI / 180;
+      const lat2 = coord2[1] * Math.PI / 180;
+      const deltaLat = (coord2[1] - coord1[1]) * Math.PI / 180;
+      const deltaLon = (coord2[0] - coord1[0]) * Math.PI / 180;
+
+      const a = Math.sin(deltaLat/2) * Math.sin(deltaLat/2) +
+                Math.cos(lat1) * Math.cos(lat2) *
+                Math.sin(deltaLon/2) * Math.sin(deltaLon/2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+      return R * c;
+    }
+
+    // Calculate total trail distance in miles
+    function getTrailDistance(coordinates) {
+      const allPoints = coordinates.flat();
+      let totalDistance = 0;
+
+      for (let i = 0; i < allPoints.length - 1; i++) {
+        totalDistance += calculateDistance(allPoints[i], allPoints[i + 1]);
+      }
+
+      return totalDistance;
+    }
+
+    // Get a point at a specific percentage along the trail (0.0 to 1.0)
+    function getTrailPointAtPercentage(coordinates, percentage) {
       // Flatten all segments into a single array of points
       const allPoints = coordinates.flat();
 
-      // Get the middle index
-      const midIndex = Math.floor(allPoints.length / 2);
-      const midPoint = allPoints[midIndex];
+      // Get the index at the desired percentage
+      const targetIndex = Math.floor(allPoints.length * percentage);
+      const point = allPoints[Math.min(targetIndex, allPoints.length - 1)];
 
       // Return as MapKit coordinate (lat, lon)
-      return new mapkit.Coordinate(midPoint[1], midPoint[0]);
+      return new mapkit.Coordinate(point[1], point[0]);
+    }
+
+    // Calculate the midpoint of a trail for marker placement
+    function getTrailMidpoint(coordinates) {
+      return getTrailPointAtPercentage(coordinates, 0.5);
     }
 
     // Add trail marker annotation
@@ -454,11 +487,28 @@
                 trailOverlays.push(polyline);
               });
 
-              // Add trail marker at midpoint
-              const midpoint = getTrailMidpoint(coordinates);
-              addTrailMarker(midpoint, properties);
+              // Calculate trail distance
+              const trailDistance = getTrailDistance(coordinates);
 
-              console.log(`Added ${coordinates.length} segments for trail: ${trailName}`);
+              // Add trail markers based on trail length
+              if (trailDistance > 2) {
+                // For trails over 2 miles, add markers at 25%, 50%, and 75%
+                const point25 = getTrailPointAtPercentage(coordinates, 0.25);
+                const point50 = getTrailPointAtPercentage(coordinates, 0.5);
+                const point75 = getTrailPointAtPercentage(coordinates, 0.75);
+
+                addTrailMarker(point25, properties);
+                addTrailMarker(point50, properties);
+                addTrailMarker(point75, properties);
+
+                console.log(`Added ${coordinates.length} segments for trail: ${trailName} (${trailDistance.toFixed(2)} miles - 3 markers)`);
+              } else {
+                // For trails 2 miles or less, add single marker at midpoint
+                const midpoint = getTrailMidpoint(coordinates);
+                addTrailMarker(midpoint, properties);
+
+                console.log(`Added ${coordinates.length} segments for trail: ${trailName} (${trailDistance.toFixed(2)} miles - 1 marker)`);
+              }
             }
           });
         }

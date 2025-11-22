@@ -4,9 +4,9 @@
     {
       "properties" : {
         "description" : "",
-        "color" : "blue",
+        "color" : "gray",
         "info" : "Length: 0.39 miles. Elevation gain: 2 feet.",
-        "name" : "East Prairie Segment",
+        "name" : "Service Trail",
         "imageURL" : ""
       },
       "type" : "Feature",

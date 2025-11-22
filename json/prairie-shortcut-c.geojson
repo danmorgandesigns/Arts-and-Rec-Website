@@ -356,10 +356,10 @@
         "type" : "MultiLineString"
       },
       "properties" : {
-        "name" : "Prairie Shortcut C",
+        "name" : "Shortcut",
         "info" : "Length: 0.25 miles. Elevation gain: 10 feet.",
         "description" : "",
-        "color" : "blue",
+        "color" : "gray",
         "imageURL" : ""
       }
     }

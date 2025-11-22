@@ -365,10 +365,10 @@
       },
       "type" : "Feature",
       "properties" : {
-        "name" : "Prairie Shortcut B",
+        "name" : "Shortcut",
         "info" : "Length: 0.25 miles. Elevation gain: 9 feet.",
         "description" : "",
-        "color" : "blue",
+        "color" : "gray",
         "imageURL" : ""
       }
     }
